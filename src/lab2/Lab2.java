@@ -1,27 +1,30 @@
-package lab1;
+package lab2;
 
 import java.io.*;
+import java.util.*;
 
-public class Lab1 {
+public class Lab2 {
     public static void main(String[] args) {
         
-        String path = "C:" + File.separatorChar + "Users" + File.separatorChar + 
+    String path = "C:" + File.separatorChar + "Users" + File.separatorChar + 
                 "Andy" + File.separatorChar + "Documents"+ File.separatorChar + 
                 "Java Files"+ File.separatorChar + "lab1text.txt";
         File file = new File(path);
         BufferedReader input = null;
+        List<String> records = new ArrayList<String>();
         try{
             input = new BufferedReader(new FileReader(file));
             String line = input.readLine();
             
-            int row = 1;
+            System.out.print("Adding");
             while(line != null){
-                if(row==2){
-                    System.out.println(line); //Step 1
-                } //Step 2
+                records.add(line);
                 line = input.readLine();
-                row++;
+                
+                System.out.print(".");
             }
+            System.out.println("\tDone.");
+            
         }catch(IOException ex){
             System.err.println("There was an error reading the file");
         }finally{
@@ -32,6 +35,14 @@ public class Lab1 {
             }
         }
         
-        
+        CustomFormatConverter converter = new CustomFormatConverter();
+        List<Map<String,String>> convertedList = converter.convert(records);
+        System.out.println("List was converted successfully.\n");
+        Map testing = convertedList.get(0);
+        Set<String> keys = testing.keySet();
+        for(String key: keys){
+            System.out.println(testing.get(key));
+        }
+        //System.out.println(testing.get("First"));
     }
 }
