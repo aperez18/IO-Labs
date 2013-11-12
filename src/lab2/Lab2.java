@@ -5,25 +5,21 @@ import java.util.*;
 
 public class Lab2 {
     public static void main(String[] args) {
-        
-    String path = "C:" + File.separatorChar + "Users" + File.separatorChar + 
+        String path = "C:" + File.separatorChar + "Users" + File.separatorChar + 
                 "Andy" + File.separatorChar + "Documents"+ File.separatorChar + 
                 "Java Files"+ File.separatorChar + "lab1text.txt";
         File file = new File(path);
         BufferedReader input = null;
-        List<String> records = new ArrayList<String>();
+        
         try{
             input = new BufferedReader(new FileReader(file));
             String line = input.readLine();
-            
-            System.out.print("Adding");
+            List<String> records = new ArrayList<String>();
             while(line != null){
                 records.add(line);
                 line = input.readLine();
-                
-                System.out.print(".");
             }
-            System.out.println("\tDone.");
+            System.out.println(getRecord(3,records));
             
         }catch(IOException ex){
             System.err.println("There was an error reading the file");
@@ -34,15 +30,13 @@ public class Lab2 {
                 System.err.println("You messed up.");
             }
         }
-        
-        CustomFormatConverter converter = new CustomFormatConverter();
-        List<Map<String,String>> convertedList = converter.convert(records);
-        System.out.println("List was converted successfully.\n");
-        Map testing = convertedList.get(0);
-        Set<String> keys = testing.keySet();
-        for(String key: keys){
-            System.out.println(testing.get(key));
+    }
+    
+    public static String getRecord(int choice, List<String> records){
+        if(records == null || choice < 1 || choice > 3){
+            return "You must enter a number between 1 and 3.";
+        }else{
+            return records.get(choice - 1);
         }
-        //System.out.println(testing.get("First"));
     }
 }
